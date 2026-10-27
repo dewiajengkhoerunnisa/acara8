@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html>
+<body>
+    <h2>Form Input Data Penduduk</h2>
+
+    <form action="input.php" method="post">
+        <label>Kecamatan:</label><br>
+        <input type="text" name="kecamatan" required><br>
+
+        <label>Longitude:</label><br>
+        <input type="number" step="any" name="longitude" required><br>
+
+        <label>Latitude:</label><br>
+        <input type="number" step="any" name="latitude" required><br>
+
+        <label>Luas:</label><br>
+        <input type="number" name="luas" id="luas" step="any" required><br>
+
+        <label>Jumlah Penduduk:</label><br>
+        <input type="number" name="jumlah_penduduk" min="0" required><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
