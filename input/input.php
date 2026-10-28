@@ -1,5 +1,9 @@
-
 <?php
+if ($_SERVER["REQUEST_METHOD"] != "POST") {
+    header("Location: index.html");
+    exit;
+}
+
 $kecamatan = $_POST['kecamatan'];
 $longitude = $_POST['longitude'];
 $latitude = $_POST['latitude'];
