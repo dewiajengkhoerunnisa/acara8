@@ -4,11 +4,13 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
     exit;
 }
 
-$kecamatan = $_POST['kecamatan'];
+$praktik = $_POST['praktik'];
+$faskes = $_POST['faskes'];
+$kalurahan = $_POST['kalurahan'];
+$kapanewon = $_POST['kapanewon'];
+$alamat = $_POST['alamat'];
 $longitude = $_POST['longitude'];
 $latitude = $_POST['latitude'];
-$luas = $_POST['luas'];
-$jumlah_penduduk = $_POST['jumlah_penduduk'];
 
 $servername = "localhost";
 $username = "root";
@@ -21,17 +23,21 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "INSERT INTO penduduk
-(kecamatan, longitude, latitude, luas, jumlah_penduduk)
-VALUES
-('$kecamatan', $longitude, $latitude, $luas, $jumlah_penduduk)";
+$stmt = $conn->prepare(
+    "INSERT INTO faskes (praktik, faskes, kalurahan, kapanewon, alamat, longitude, latitude)
+     VALUES (?, ?, ?, ?, ?, ?, ?)"
+);
+$stmt->bind_param("sssssdd", $praktik, $faskes, $kalurahan, $kapanewon, $alamat, $longitude, $latitude);
 
-if ($conn->query($sql) === TRUE) {
-    echo "Data berhasil ditambahkan!";
-    echo "<br><a href='../index.php'>Kembali ke tabel</a>";
+if ($stmt->execute()) {
+    $stmt->close();
+    $conn->close();
+    header("Location: ../index.php");
+    exit;
 } else {
-    echo "Error: " . $conn->error;
+    echo "Error: " . $stmt->error;
 }
 
+$stmt->close();
 $conn->close();
 ?>
